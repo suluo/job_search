@@ -1,0 +1,5 @@
+python=3.6
+scarpy=1.4
+scrapy_redis=
+Redis
+MongoDB

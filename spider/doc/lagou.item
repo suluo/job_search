@@ -1,0 +1,78 @@
+## 通用
+{
+    "job_id": "lgxxx",
+    "job_source": "拉钩",
+    "job_url": "url",
+    "name": "",
+    "discovery_time": "",
+    "publish_time": ,
+    "company": "爱奇艺",
+    "workpalce": "北京",
+}
+
+## 拉钩 job
+{
+    "category":{
+        "category": "技术",
+        "l2_category": "人工智能",
+        "l3_category": "深度学习",
+    },
+    "department": "广告部",
+    "salary": "30-45",
+    "work_experience": "3-5",
+    "educational": "硕士",
+    "job_nature": "全职"
+    "job_tags": [],
+    "welfare": "福利待遇",
+    "job_description": {
+        "职责":
+        "要求":
+    },
+    "work_address": , 
+    "publisher": {
+        "name": ,
+        "hr",
+    }
+    "hot_comments": [{
+        "stars": [],
+        "content":,
+        "tags": , 
+        "publish_time":
+        "quality_num": 
+    }]
+}
+### 拉钩 company
+{
+    "name": ,
+    "homepage": ,
+    "domain": ,
+    "development": ,
+    "investment": ,
+    "scale": ,
+    "discovery_time": ,
+
+    "vacancy_num": ,
+    "resume_handler_time": ,
+    "resume_handler_rate": ,
+    "interview_assessment_num": ,
+    "company_products": ,
+    "stars": {
+        "avage":
+        "":
+        "":
+        "":
+    }
+}
+
+### 面试评价
+{
+    "pid": "company+id",
+    "publish_time": ,
+    "company": "" ,
+    "stars": ,
+    "jobs": ,
+    "tags": ,
+    "content": ,
+    "quantity_num": ,
+    "publish_time": ,
+}
