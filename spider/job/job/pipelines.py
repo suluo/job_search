@@ -15,7 +15,7 @@ class testJobPipeline(object):
         return item
 
 
-class JobPipeline(object):
+class JobMongoPipeline(object):
     def __init__(self):
         self.client = MongoClient(host=settings['MONGO_HOST'],
                                   port=settings['MONGO_PORT']).job

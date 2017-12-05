@@ -78,7 +78,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'job.pipelines.JobPipeline': 300,
+#    'job.pipelines.JobPipeline': 300,
+    'job.pipelines.JobMongoPipeline': 300,
 #    'scrapy_redis.pipelines.RedisPipeline': 400,
 }
 
