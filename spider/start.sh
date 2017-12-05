@@ -6,6 +6,7 @@
 # Creation Date: 2017-12-04
 # Last Modified: 2017-12-04 16:44:28
 # Descption    :
+#                scrapy 命令 http://blog.csdn.net/github_35160620/article/details/53347805
 ############################################
 
 set x
@@ -16,8 +17,8 @@ set x
 scrapy startproject job
 FILE_DIR="./job"
 cd ${FILE_DIR}
-scrapy genspider lagouspider lagou.com
-scrapy genspider tencentspider hr.tencent.com
+scrapy genspider lagou lagou.com
+scrapy genspider tencent hr.tencent.com
 
 
 # 运行爬虫命令
