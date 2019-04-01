@@ -10,33 +10,34 @@ from job.items import TencentItem
 
 class TencentSpider(RedisSpider):
     name = "tencent"
-    allowed_domains = ["tencent.com"]
     redis_key = "tencent:start_urls"
-    start_urls = [
-        'http://hr.tencent.com/position.php?&start=0#a'
-    ]
+#    start_urls = [
+#        'http://hr.tencent.com/position.php?&start=0#a'
+#    ]
 
-    def start_requests(self):
-        for url in self.start_urls:
-            yield Request(url=url, callback=self.parse)
+    def __init__(self, *args, **kwargs):
+        domain = kwargs.pop('domain', '')
+        self.allowed_domains = filter(None, domain.split(','))
+        super(TencentSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
+        print ("24------", response)
         hxs = Selector(response)
         # sites = hxs.xpath('//*[@id="position"]/div[1]/table/tbody/tr[@class="even" or @class="odd"]')
         sites = hxs.xpath('//*[@id="position"]/div[1]/table/tr[@class="even"]|//*[@id="position"]/div[1]/table/tr[@class="odd"]')
         # print sites
         for site in sites:
             item = TencentItem()
-            item['JobTitle'] = site.xpath('td[1]/a/text()').extract()
-            item['DetailLink'] = 'http://hr.tencent.com/'+site.xpath('td[1]/a/@href').extract()[0]
+            item['JobTitle'] = site.xpath('td[1]/a/text()').extract_first()
+            item['DetailLink'] = 'http://hr.tencent.com/'+site.xpath('td[1]/a/@href').extract_first()
             # detailurl = 'http://hr.tencent.com/'+item['DetailLink'][0]
-            item['JobType'] = site.xpath('td[2]/text()').extract()
-            item['peoplenum'] = site.xpath('td[3]/text()').extract()
-            item['location'] = site.xpath('td[4]/text()').extract()
-            item['PostDate'] = site.xpath('td[5]/text()').extract()
+            item['JobType'] = site.xpath('td[2]/text()').extract_first()
+            item['peoplenum'] = site.xpath('td[3]/text()').extract_first()
+            item['location'] = site.xpath('td[4]/text()').extract_first()
+            item['PostDate'] = site.xpath('td[5]/text()').extract_first()
             yield Request(url=item['DetailLink'], meta={'item': item}, callback=self.detail_parse)
 
-        nexturl = 'http://hr.tencent.com/' + hxs.xpath('//*[@id="next"]/@href').extract()[0]
+        nexturl = 'http://hr.tencent.com/' + hxs.xpath('//*[@id="next"]/@href').extract_first()
         # print nexturl
         yield Request(url=nexturl, callback=self.parse)
         pass

@@ -15,6 +15,7 @@ class JobItem(Item):
 
 
 class TencentItem(Item):
+    # Tencent
     JobTitle = Field()
     DetailLink = Field()
     JobType = Field()
@@ -25,6 +26,41 @@ class TencentItem(Item):
     responsibilities = Field()
     requirements = Field()
     pass
+
+
+class LagouItem(Item):
+    job_id = Field()
+    job_name = Field()
+    category = Field()
+    l1_category = Field()
+    l2_category = Field()
+    salary = Field()
+    job_link = Field()
+    format_time = Field()
+    experience = Field()
+
+    company_id = Field()
+    company_name = Field()
+    company_link = Field()
+    company_industry = Field()
+    com_logo_link = Field()
+
+    label = Field()
+    advantage = Field()
+    department = Field()
+    publish_time = Field()
+    description = Field()
+    job_address = Field()
+    publish_name = Field()
+    publish_pos = Field()
+
+    review_stars = Field()
+    review_date = Field()
+    review_tags = Field()
+    review_content = Field()
+    review_action = Field()
+
+    jobs_similar = Field()
 
 
 class LagouCommentItem(Item):

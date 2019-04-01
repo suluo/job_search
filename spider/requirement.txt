@@ -1,5 +1,12 @@
-python=3.6
-scarpy=1.4
-scrapy_redis=
+python>=3.6
+scarpy>=1.4
+scrapy-redis
+pymongo
+pyredis
+random
+fake-useragent
+
+
 Redis
 MongoDB
+

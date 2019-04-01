@@ -7,6 +7,7 @@
 import json
 from pymongo import MongoClient
 from scrapy.conf import settings
+from datetime import datetime
 
 
 class testJobPipeline(object):
@@ -21,12 +22,47 @@ class JobMongoPipeline(object):
                                   port=settings['MONGO_PORT']).job
 
     def process_item(self, item, spider):
+        postItem = dict(item)
+        table = spider.name
         if spider.name == 'lagou' and isinstance(item, LagouCommentItem):
-            postItem = dict(item)
-            self.client.lagoucomment.insert(postItem)
+            table = "lagouComment"
+        postItem['discovery_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(26, postItem)
+
+        db = self.client[table]
+        db.ensure_index("job_link")
+        if db.find({"job_link": postItem['job_link']}).count() > 0:
+            db.update({'job_link': postItem['job_link']}, postItem)
         else:
-            postItem = dict(item)
-            self.client[spider.name].insert(postItem)
+            db.insert(postItem)
+        self.client[table].insert(postItem)
+        return item
+
+
+class MongoPipeline(object):
+    def __init__(self, mongo_uri, mongo_db,mongo_user, mongo_password):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+        self.mongo_user = mongo_user
+        self.mongo_password = mongo_password
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri=crawler.settings.get('MONGO_URI'),
+            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items'),
+            mongo_user = crawler.settings.get('MONGO_USER'),
+            mongo_password = crawler.settings.get('MONGO_PASSWORD'),
+        )
+
+    def open_spider(self, spider):
+        self.client = MongoClient('mongodb://%s:%s@%s/admin' % (self.mongo_user,self.mongo_password,self.mongo_uri))
+        self.db = self.client[self.mongo_db]
+
+    def close_spider(self, spider):
+        self.client.close()
+
+    def process_item(self, item, spider):
         return item
 
 
